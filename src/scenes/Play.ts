@@ -10,7 +10,7 @@ export default class Play extends Phaser.Scene {
   starfield?: Phaser.GameObjects.TileSprite;
   spinner?: Phaser.GameObjects.Shape;
   isLaunched = false;
-  launchSpeed = 2;
+  launchSpeed = 3;
 
   rotationSpeed = Phaser.Math.PI2 / 1000; // radians per millisecond
 
@@ -62,11 +62,18 @@ export default class Play extends Phaser.Scene {
       this.spinner.y -= this.launchSpeed * delta;
     }
 
+    if (this.isLaunched) {
+      if (this.spinner) {
+        this.spinner.y -= this.launchSpeed;
+      }
+    }
+    
     if (this.fire!.isDown) {
       // this.spinner?.y -= 1;
+      this.isLaunched = true;
       this.tweens.add({
         targets: this.spinner,
-        y: '-=50', // move up by 50 pixelss
+        // y: '-=50', // move up by 50 pixelss
         scale: { from: 1.5, to: 1 },
         duration: 300,
         ease: Phaser.Math.Easing.Sine.Out,
