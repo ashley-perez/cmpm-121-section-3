@@ -41,7 +41,9 @@ export default class Play extends Phaser.Scene {
       )
       .setOrigin(0, 0);
 
-    this.spinner = this.add.rectangle(100, 100, 50, 50, 0xff0000);
+    // move player to bottom
+    let origin = [320, 450]
+    this.spinner = this.add.rectangle(origin[0], origin[1], 50, 50, 0xa38ee7);
   }
 
   update(_timeMs: number, delta: number) {
@@ -55,12 +57,17 @@ export default class Play extends Phaser.Scene {
     }
 
     if (this.fire!.isDown) {
+      // this.spinner?.y -= 1;
       this.tweens.add({
         targets: this.spinner,
+        y: '-=50', // move up by 50 pixels
         scale: { from: 1.5, to: 1 },
         duration: 300,
         ease: Phaser.Math.Easing.Sine.Out,
       });
     }
+    // if (this.spinner?.y >= 0) {
+    //   console.log("hello");
+    // }
   }
 }
